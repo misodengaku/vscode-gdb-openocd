@@ -1,0 +1,50 @@
+{
+	"version": "0.1.0",
+	"command": "bash",
+	"isShellCommand": true,
+	"args": [
+		"-c"
+	],
+	"showOutput": "always",
+	"tasks": [
+		{
+			"taskName": "build",
+			"suppressTaskName": true,
+			"isBuildCommand": true,
+			"args": [
+				"make -j5"
+			],
+			"problemMatcher": {
+				"owner": "c",
+				"fileLocation": [
+					"relative",
+					"${workspaceRoot}"
+				],
+				"pattern": [
+					{
+						"regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error|fatal error):\\s+(.*)$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"severity": 4,
+						"message": 5
+					}/*,
+					{
+						"regexp": "^(.*):(\\d+):\\s(undefined reference to `.*')$",
+						"file": 1,
+						"line": 2,
+						"message": 3,
+						"loop": true
+					}*/
+				]
+			}
+		},
+		{
+			"taskName": "flash",
+			"suppressTaskName": true,
+			"args": [
+				"openocd -s C:\\openocd\\tcl -f interface/stlink-v2.cfg -f target/stm32f4x.cfg & && sleep 2"
+			]
+		}
+	]
+}
